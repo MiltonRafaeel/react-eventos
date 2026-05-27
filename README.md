@@ -1,73 +1,46 @@
-# React + TypeScript + Vite
+# React Eventos — Filho → Pai (Lifting State)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Projeto simples em **React + TypeScript + Vite** para praticar **eventos (onClick)** e **comunicação do componente filho para o componente pai** usando **props de callback** (padrão conhecido como *lifting state up*).
 
-Currently, two official plugins are available:
+## Preview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+![Preview do projeto](./src/assets/img.png)
 
-## React Compiler
+## Link do repositório
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- GitHub: [MiltonRafaeel/react-eventos](https://github.com/MiltonRafaeel/react-eventos)
 
-## Expanding the ESLint configuration
+## O que foi praticado
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Manipulação de eventos no React (`onClick`)
+- Estado local com `useState`
+- Envio de dados do **Filho → Pai** via função recebida por `props`
+- Atualização de estado no componente pai baseada no valor vindo do filho
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Como funciona
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- **`ChieldComponent`** mantém um contador local (`count`).
+  - Ao clicar no botão **Ok**, ele incrementa o contador e chama `onNewValue(newCount)`.
+- **`ParentComponent`** recebe esse valor no callback `handleNewValue(newValue)`.
+  - O pai calcula o **triplo** do valor recebido e salva em `triple`:
+    - `setTriple(newValue * 3)`
+  - O valor `triple` é exibido na tela.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+> Ou seja: o filho “avisa” o pai sobre o novo valor, e o pai decide o que fazer com ele (regra de negócio).
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Tecnologias utilizadas
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- React (v19)
+- TypeScript
+- Vite
+- Yarn
+- ESLint
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Como executar (Yarn)
+
+```bash
+# 1) Clonar
+git clone https://github.com/MiltonRafaeel/react-eventos.git
+
+# 2) Entrar na pasta + instalar dependências + rodar
+cd react-eventos && yarn && yarn dev
