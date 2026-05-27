@@ -1,9 +1,9 @@
-
+import ParentComponent from "./components/ParentComponent";
 
 function App() {
 
   return (
-    <h1>Ola mundo</h1>
+    <ParentComponent />
   );
 }
 
